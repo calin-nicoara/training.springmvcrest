@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:54321/carrefour_one?currentSchema=pm_voucher_engine
+    username: ecarrefour
+    password: ecarrefour
+  jpa.hibernate.ddl-auto: create
+server:
+  port: 8199
