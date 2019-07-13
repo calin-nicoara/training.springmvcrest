@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:54321/carrefour_one?currentSchema=pm_voucher_engine
+    url: jdbc:postgresql://localhost:54321/postgres?currentSchema=public
     username: ecarrefour
     password: ecarrefour
   jpa:
