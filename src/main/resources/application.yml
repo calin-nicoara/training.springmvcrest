@@ -5,13 +5,12 @@ spring:
     password: ecarrefour
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         jdbc:
           lob:
             non_contextual_creation: true
-
 server:
   port: 8199
   error:

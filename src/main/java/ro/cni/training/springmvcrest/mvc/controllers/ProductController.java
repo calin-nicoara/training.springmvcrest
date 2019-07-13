@@ -26,8 +26,8 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{productId}")
     public String getProduct(@PathVariable Long productId, Model model) {
-        model.addAttribute("products", productRepository.findById(productId).get());
+        model.addAttribute("product", productRepository.findById(productId).get());
 
-        return "products";
+        return "product/product";
     }
 }
