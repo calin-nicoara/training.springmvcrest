@@ -13,6 +13,8 @@ public class SpringmvcrestApplication extends SpringBootServletInitializer {
         return builder.sources(SpringmvcrestApplication.class);
     }
 
+
+
     public static void main(String[] args) {
         SpringApplication.run(SpringmvcrestApplication.class, args);
     }

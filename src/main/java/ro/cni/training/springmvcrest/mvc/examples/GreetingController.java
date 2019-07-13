@@ -1,20 +1,19 @@
-package ro.cni.training.springmvcrest.mvc.controllers;
+package ro.cni.training.springmvcrest.mvc.examples;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.TimeZone;
+import lombok.AllArgsConstructor;
 
 @Controller
+@AllArgsConstructor
 public class GreetingController {
 
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name,
-                           TimeZone timezone,
                            Model model) {
-        System.out.println(timezone);
         model.addAttribute("name", name);
         return "greeting";
     }
