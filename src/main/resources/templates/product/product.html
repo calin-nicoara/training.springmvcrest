@@ -27,10 +27,10 @@
     <h1>Product details</h1>
 
     <ul class="list-group">
-      <li class="list-group-item" th:text="'Id: ' + ${product.id}"></li>
-      <li class="list-group-item" th:text="'Name: ' + ${product.name}"></li>
-      <li class="list-group-item" th:text="'Brand: ' + ${product.brand}"></li>
-      <li class="list-group-item" th:text="'Price: ' + ${product.price}"></li>
+      <li class="list-group-item" th:text="|Id: ${product.id}|"></li>
+      <li class="list-group-item" th:text="|Name: ${product.name}|"></li>
+      <li class="list-group-item" th:text="|Brand: ${product.brand}|"></li>
+      <li class="list-group-item" th:text="|Price + ${product.price}|"></li>
     </ul>
   </div>
 
