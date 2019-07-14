@@ -21,7 +21,7 @@ public class ProductController {
     public String getProducts(Model model) {
         model.addAttribute("products", productRepository.findAll());
 
-        return "products";
+        return "product/products";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{productId}")

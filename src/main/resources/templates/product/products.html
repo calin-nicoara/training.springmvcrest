@@ -1,0 +1,31 @@
+<div th:replace="common/header"></div>
+<h1>Products list</h1>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Details</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="product : ${products}">
+    <td th:text="${product.id}"></td>
+    <td th:text="${product.name}"></td>
+    <td>
+      <a class="btn btn-primary"
+           th:href="@{/product/{productId}(productId=${product.id})}">Details</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<!--<ul class="list-group">-->
+<!--  <li class="list-group-item" th:text="|Id: ${product.id}|"></li>-->
+<!--  <li class="list-group-item" th:text="|Name: ${product.name}|"></li>-->
+<!--  <li class="list-group-item" th:text="|Brand: ${product.brand}|"></li>-->
+<!--  <li class="list-group-item" th:text="|Price + ${product.price}|"></li>-->
+<!--</ul>-->
+
+<div th:replace="common/footer"></div>
