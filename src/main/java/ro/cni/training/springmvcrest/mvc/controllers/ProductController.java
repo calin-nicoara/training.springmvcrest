@@ -35,7 +35,7 @@ public class ProductController {
     public String addProduct(Product product, Model model) {
         productRepository.save(product);
 
-        return "redirect:/product/products";
+        return "redirect:/product";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{productId}")
@@ -43,5 +43,12 @@ public class ProductController {
         model.addAttribute("product", productRepository.findById(productId).get());
 
         return "product/product";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{productId}/edit")
+    public String showProductEdit(@PathVariable Long productId, Model model) {
+        model.addAttribute("product", productRepository.findById(productId).get());
+
+        return "product/add";
     }
 }
