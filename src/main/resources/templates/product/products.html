@@ -1,6 +1,10 @@
 <div th:replace="common/header"></div>
 <h1>Products list</h1>
 
+<div class="action-button-section">
+  <a class="btn btn-primary" th:href="@{/product/add}">Add Product</a>
+</div>
+
 <table class="table">
   <thead>
   <tr>
@@ -14,18 +18,11 @@
     <td th:text="${product.id}"></td>
     <td th:text="${product.name}"></td>
     <td>
-      <a class="btn btn-primary"
+      <a class="btn btn-info"
            th:href="@{/product/{productId}(productId=${product.id})}">Details</a>
     </td>
   </tr>
   </tbody>
 </table>
-
-<!--<ul class="list-group">-->
-<!--  <li class="list-group-item" th:text="|Id: ${product.id}|"></li>-->
-<!--  <li class="list-group-item" th:text="|Name: ${product.name}|"></li>-->
-<!--  <li class="list-group-item" th:text="|Brand: ${product.brand}|"></li>-->
-<!--  <li class="list-group-item" th:text="|Price + ${product.price}|"></li>-->
-<!--</ul>-->
 
 <div th:replace="common/footer"></div>

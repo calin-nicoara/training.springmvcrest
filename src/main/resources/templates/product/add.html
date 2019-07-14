@@ -1,0 +1,23 @@
+<div th:replace="common/header"></div>
+<h1>Add product</h1>
+
+<form action="#" th:action="@{/product}" th:object="${product}" method="post">
+  <div class="form-group">
+    <label for="productName">Name</label>
+    <input type="text" th:field="*{name}" id="productName"
+           class="form-control" placeholder="Name for product">
+  </div>
+  <div class="form-group">
+    <label for="productBrand">Brand</label>
+    <input type="text" th:field="*{brand}"
+           id="productBrand" class="form-control" placeholder="Brand for product">
+  </div>
+  <div class="form-group">
+    <label for="productPrice">Price</label>
+    <input type="number" step="0.01" th:field="*{price}"
+           id="productPrice" class="form-control" placeholder="Price for product">
+  </div>
+  <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+<div th:replace="common/footer"></div>

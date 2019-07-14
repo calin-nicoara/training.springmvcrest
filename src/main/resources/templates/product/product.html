@@ -6,6 +6,9 @@
   <li class="list-group-item" th:text="|Name: ${product.name}|"></li>
   <li class="list-group-item" th:text="|Brand: ${product.brand}|"></li>
   <li class="list-group-item" th:text="|Price + ${product.price}|"></li>
+  <li class="list-group-item"><img
+      height="300px"
+      th:src="@{/img/{productId}.jpg(productId=${product.id})}" alt=""></li>
 </ul>
 
 <div th:replace="common/footer"></div>
