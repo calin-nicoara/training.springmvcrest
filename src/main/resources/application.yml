@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:54321/postgres?currentSchema=public
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public
     username: ecarrefour
     password: ecarrefour
   jpa:
@@ -11,7 +11,7 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
 server:
-  port: 8199
   error:
     include-stacktrace: always
