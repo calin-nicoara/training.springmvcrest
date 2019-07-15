@@ -32,6 +32,16 @@ public class ProductController {
         return "product/products";
     }
 
+    @RequestMapping(method = RequestMethod.GET, params="brand")
+    public String getProductsByBrand(@RequestParam("brand") String brand, Model model) {
+        model.addAttribute("products", productRepository.findByBrand(
+                brand,
+                Sort.by(Sort.Order.asc("id"))
+        ));
+
+        return "product/products";
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public String addProduct(Product product, Model model) {
         productRepository.save(product);
