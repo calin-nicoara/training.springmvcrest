@@ -15,6 +15,7 @@ import java.util.Locale;
 @EnableWebMvc
 public class SpringWebConfig implements WebMvcConfigurer {
 
+    @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/img/");
         registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");

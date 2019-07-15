@@ -1,3 +1,4 @@
+<div th:fragment="header (link)">
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,10 +18,12 @@
 
 <div id="main" class="container">
   <nav class="nav nav-pills nav-justified">
-    <a class="nav-link active" href="/">Home</a>
-    <a class="nav-link" href="/product">Products</a>
+    <a class="nav-link" th:classappend="${link == 'home'} ? active : ''" href="/">Home</a>
+    <a class="nav-link" th:classappend="${link == 'product'} ? active : ''" href="/product">Products</a>
     <a class="nav-link" href="#">Empty Link</a>
     <a class="nav-link disabled" href="#">Disabled</a>
   </nav>
 
   <div class="content container">
+
+  </div>
