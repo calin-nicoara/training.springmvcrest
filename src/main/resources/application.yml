@@ -11,8 +11,7 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-
 server:
-  port: 8199
+  port: 8080
   error:
     include-stacktrace: always
