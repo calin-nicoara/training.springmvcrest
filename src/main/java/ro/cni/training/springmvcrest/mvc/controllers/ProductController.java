@@ -1,12 +1,10 @@
 package ro.cni.training.springmvcrest.mvc.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.AllArgsConstructor;
 import ro.cni.training.springmvcrest.product.Product;
@@ -26,7 +24,7 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getProducts(Model model) {
-        model.addAttribute("products", productRepository.findAll());
+        model.addAttribute("products", productRepository.findAll(Sort.by(Sort.Order.asc("id"))));
 
         return "product/products";
     }
@@ -47,8 +45,17 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{productId}/edit")
     public String showProductEdit(@PathVariable Long productId, Model model) {
-        model.addAttribute("product", productRepository.findById(productId).get());
+        //TODO Fix if product not found
+        Product product = productRepository.findById(productId).get();
+        model.addAttribute("product", product);
 
-        return "product/add";
+        return "product/edit";
+    }
+
+    @PostMapping("/{productId}")
+    public String editProduct(@PathVariable Long productId, Product product, Model model) {
+        productRepository.save(product);
+
+        return "redirect:/product";
     }
 }

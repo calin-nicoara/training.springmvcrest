@@ -1,6 +1,7 @@
+server.port: 8079
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public
+    url: jdbc:postgresql://localhost:54321/postgres?currentSchema=public
     username: ecarrefour
     password: ecarrefour
   jpa:
