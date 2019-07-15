@@ -1,4 +1,4 @@
-<div th:replace="common/header"></div>
+<div th:replace="common/header.html :: header(link = 'product')"></div>
 <h1>Add product</h1>
 
 <form action="#" th:action="@{/product}" th:object="${product}" method="post">
