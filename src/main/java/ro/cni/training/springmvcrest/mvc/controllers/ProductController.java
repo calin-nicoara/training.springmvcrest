@@ -6,6 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.validation.Valid;
 
@@ -43,8 +48,15 @@ public class ProductController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String addProduct(Product product, Model model) {
-        productRepository.save(product);
+    public String addProduct(@RequestParam("file") MultipartFile file, Product product, Model model) {
+        String absolut = "/home/calin-nicoara/Projects/courses/java_courses/springmvcrest/src/main/resources/static/img";
+        Product savedProduct = productRepository.save(product);
+
+        try {
+            Files.write(Paths.get(absolut, savedProduct.getId().toString() + ".jpg"), file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return "redirect:/product";
     }
