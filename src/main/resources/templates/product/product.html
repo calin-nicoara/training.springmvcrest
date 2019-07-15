@@ -11,4 +11,6 @@
       th:src="@{/img/{productId}.jpg(productId=${product.id})}" alt=""></li>
 </ul>
 
+<a class="btn btn-danger" th:href="@{/product/{id}/delete(id=${product.id})}">Delete</a>
+
 <div th:replace="common/footer"></div>
