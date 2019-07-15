@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 import lombok.AllArgsConstructor;
 import ro.cni.training.springmvcrest.product.Product;
@@ -53,7 +56,16 @@ public class ProductController {
     }
 
     @PostMapping("/{productId}")
-    public String editProduct(@PathVariable Long productId, Product product, Model model) {
+    public String editProduct(@PathVariable Long productId,
+                              @Valid Product product, BindingResult bindingResult,
+                              Model model) {
+        if(bindingResult.hasErrors()) {
+            product.setId(productId);
+            bindingResult.rejectValue("brand", "not.good");
+            model.addAttribute("product", product);
+            return "product/edit";
+        }
+
         productRepository.save(product);
 
         return "redirect:/product";

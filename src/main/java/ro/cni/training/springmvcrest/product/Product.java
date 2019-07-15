@@ -3,11 +3,10 @@ package ro.cni.training.springmvcrest.product;
 import java.math.BigDecimal;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
@@ -20,7 +19,13 @@ public class Product {
     @GeneratedValue(generator = "PRODUCT_SEQ_GEN", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "PRODUCT_SEQ_GEN", sequenceName = "PRODUCT_SEQ", allocationSize = 1)
     private long id;
+
+    @NotBlank
     private String name;
+
+    @NotNull
     private BigDecimal price;
+
+    @NotBlank
     private String brand;
 }
