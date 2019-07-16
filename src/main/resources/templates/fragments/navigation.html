@@ -1,0 +1,11 @@
+<div th:fragment="navbar (activeLink)">
+  <nav class="nav nav-pills nav-justified">
+    <a class="nav-link"
+       th:classappend="${activeLink == 'home'} ? 'active' : ''"
+       href="/">Home</a>
+    <a class="nav-link" href="/product"
+       th:classappend="${activeLink == 'product'} ? 'active' : ''">Products</a>
+    <a class="nav-link" href="#">Empty Link</a>
+    <a class="nav-link disabled" href="#">Disabled</a>
+  </nav>
+</div>

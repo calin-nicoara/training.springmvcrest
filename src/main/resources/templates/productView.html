@@ -1,0 +1,29 @@
+<div th:replace="header"></div>
+
+<div id="main" class="container">
+  <div th:replace="fragments/navigation.html ::navbar(activeLink = 'product')"></div>
+
+  <div class="content container">
+    <h1>Product Details</h1>
+
+    <ul class="list-group">
+      <li class="list-group-item" th:text="|Id: ${product.id}|"></li>
+      <li class="list-group-item" th:text="|Name: ${product.name}|"></li>
+      <li class="list-group-item" th:text="|Brand: ${product.brand}|"></li>
+      <li class="list-group-item" th:text="|Price: ${product.price}|"></li>
+      <li class="list-group-item">
+        <img height="300"
+             th:src="@{/img/{id}(id = ${product.id})}"
+             alt="">
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/shards.min.js"></script>
+</body>
+
+</html>
