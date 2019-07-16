@@ -30,6 +30,11 @@
                th:field="*{name}"
                class="form-control"
         placeholder="Name for product">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('name')}">
+          <ul>
+            <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+          </ul>
+        </div>
       </div>
       <div class="form-group">
         <label for="productBrand">Product name</label>

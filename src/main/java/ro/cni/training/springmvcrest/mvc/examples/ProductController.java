@@ -2,6 +2,7 @@ package ro.cni.training.springmvcrest.mvc.examples;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,6 +10,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import javax.validation.Valid;
 
 import lombok.AllArgsConstructor;
 import ro.cni.training.springmvcrest.mvc.product.Product;
@@ -55,7 +58,13 @@ public class ProductController {
     @PostMapping("/add")
     public String saveProduct(
             @RequestParam(value = "image", required = false) MultipartFile file,
-            Product product) {
+            @Valid Product product, BindingResult bindingResult,
+            Model model) {
+        if(bindingResult.hasErrors()) {
+            handleError(product, bindingResult, model);
+            return "addProduct";
+        }
+
         saveProductCommon(product, file);
 
         return "redirect:/product";
@@ -65,11 +74,23 @@ public class ProductController {
     public String editProduct(
             @PathVariable("productId") Long id,
             @RequestParam(value = "image", required = false) MultipartFile file,
-            Product product) {
+            @Valid Product product, BindingResult bindingResult,
+            Model model) {
+        if(bindingResult.hasErrors()) {
+            handleError(product, bindingResult, model);
+            return "addProduct";
+        }
+
         product.setId(id);
         saveProductCommon(product, file);
 
         return "redirect:/product";
+    }
+
+    private void handleError(final @Valid Product product, final BindingResult bindingResult, final Model model) {
+        bindingResult.rejectValue("name", "not.good");
+
+        model.addAttribute("product", product);
     }
 
     private void saveProductCommon(final Product product,
