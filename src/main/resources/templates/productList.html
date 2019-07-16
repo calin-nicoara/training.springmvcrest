@@ -21,6 +21,7 @@
   <div class="content container">
     <h1>Product List</h1>
 
+    <a class="btn btn-info" href="/product/add">Add product</a>
     <table class="table">
       <thead>
         <tr>
@@ -32,9 +33,17 @@
         <tr th:each="product : ${products}">
           <td th:text="${product.id}"></td>
           <td th:text="${product.name}"></td>
-          <td><a class="btn btn-info"
+          <td>
+            <a class="btn btn-info"
                  th:href="@{/product/{id}(id=${product.id})}">
-            Details</a></td>
+            Details</a>
+            <a class="btn btn-info"
+               th:href="@{/product/{id}/delete(id=${product.id})}">
+              Delete</a>
+            <a class="btn btn-info"
+               th:href="@{/product/{id}/edit(id=${product.id})}">
+              Edit</a>
+          </td>
         </tr>
       </tbody>
     </table>
