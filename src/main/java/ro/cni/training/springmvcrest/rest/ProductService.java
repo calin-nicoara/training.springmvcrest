@@ -1,5 +1,7 @@
 package ro.cni.training.springmvcrest.rest;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,11 +23,28 @@ public class ProductService {
                 .map(ProductMapper::getModel);
     }
 
-    public List<ProductListModel> getProductsForList() {
-        return productRepository.findAll()
+    public List<ProductListModel> getProductsForList(
+            final ProductFilterModel filterModel) {
+        return getProductsFiltered(filterModel)
                 .stream()
                 .map(ProductMapper::getListModel)
                 .collect(Collectors.toList());
+    }
+
+    public List<Product> getProductsFiltered(ProductFilterModel filterModel) {
+        PageRequest pageRequest = PageRequest
+                .of(filterModel.getPage(),
+                        filterModel.getSize(),
+                        Sort.by(Sort.Order.asc(filterModel.getSort()))
+                );
+
+        if (filterModel.getBrand() != null) {
+            return productRepository.findByBrand(filterModel.getBrand(), pageRequest).getContent();
+        } else if (filterModel.getName() != null) {
+            return productRepository.findByName(filterModel.getName(), pageRequest).getContent();
+        } else {
+            return productRepository.findAll(pageRequest).getContent();
+        }
     }
 
     public void createProduct(ProductModel productModel) {

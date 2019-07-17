@@ -31,9 +31,25 @@ public class ProductRestController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+//    @GetMapping
+//    public List<ProductListModel> getProductsForList(
+//            @RequestParam(value = "page",
+//                    required = false, defaultValue = "0") Integer page,
+//            @RequestParam(value = "size",
+//            required = false, defaultValue = "10") Integer size,
+//            @RequestParam(value = "sort",
+//                    required = false, defaultValue = "id") String sort,
+//            @RequestParam(value="brand", required = false) String brand,
+//            @RequestParam(value="name", required = false) String name
+//    ) {
+//        return productService.getProductsForList(page, size, sort, brand, name);
+//    }
+
     @GetMapping
-    public List<ProductListModel> getProductsForList() {
-        return productService.getProductsForList();
+    public List<ProductListModel> getProductsForList(
+            @ModelAttribute ProductFilterModel productFilterModel
+    ) {
+        return productService.getProductsForList(productFilterModel);
     }
 
     @PostMapping
