@@ -14,13 +14,14 @@ public class ProductMapper {
                 .build();
     }
 
-    public static Product getEntity(ProductModel productModel) {
+    public static Product getEntity(ProductModel productModel, String username) {
         return Product.builder()
                 .id(productModel.getId())
                 .name(productModel.getName())
                 .brand(productModel.getBrand())
                 .category(productModel.getCategory())
                 .price(productModel.getPrice())
+                .username(username)
                 .build();
     }
 

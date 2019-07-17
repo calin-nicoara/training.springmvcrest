@@ -31,4 +31,7 @@ public class Product {
 
     @NotBlank
     private String category;
+
+    @NotBlank
+    private String username;
 }

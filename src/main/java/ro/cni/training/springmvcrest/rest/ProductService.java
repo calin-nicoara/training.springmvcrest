@@ -47,8 +47,8 @@ public class ProductService {
         }
     }
 
-    public void createProduct(ProductModel productModel) {
-        Product entity = ProductMapper.getEntity(productModel);
+    public void createProduct(ProductModel productModel, final String username) {
+        Product entity = ProductMapper.getEntity(productModel, username);
         productRepository.save(entity);
     }
 

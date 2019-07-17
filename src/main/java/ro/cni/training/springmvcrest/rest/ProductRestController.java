@@ -5,6 +5,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,7 +69,26 @@ public class ProductRestController {
     @PostMapping
     public ResponseEntity<Object> createProduct(
             @RequestBody @Valid ProductModel productModel,
-            BindingResult bindingResult) {
+            BindingResult bindingResult,
+            @RequestHeader("username") String username,
+            @RequestParam(value = "image", required = false) MultipartFile image) {
+        System.out.println(image);
+        return handleCreatOrUpdateProduct(productModel, bindingResult, username);
+    }
+
+    @PutMapping("/{productId}")
+    public ResponseEntity<Object> updateProduct(@RequestBody ProductModel productModel,
+                              @PathVariable Long productId,
+                              BindingResult bindingResult,
+                                                @RequestHeader("username") String username) {
+        productModel.setId(productId);
+        return handleCreatOrUpdateProduct(productModel, bindingResult, username);
+    }
+
+    private ResponseEntity<Object> handleCreatOrUpdateProduct(
+            final ProductModel productModel,
+            final BindingResult bindingResult,
+            final String username) {
         if(bindingResult.hasErrors()) {
             List<ErrorModel> errorModels = bindingResult.getFieldErrors()
                     .stream()
@@ -83,15 +103,8 @@ public class ProductRestController {
             return ResponseEntity.badRequest().body(errorModels);
         }
 
-        productService.createProduct(productModel);
+        productService.createProduct(productModel, username);
         return ResponseEntity.ok().build();
-    }
-
-    @PutMapping("/{productId}")
-    public void updateProduct(@RequestBody ProductModel productModel,
-                              @PathVariable Long productId) {
-        productModel.setId(productId);
-        productService.createProduct(productModel);
     }
 
     @DeleteMapping("/{productId}")
