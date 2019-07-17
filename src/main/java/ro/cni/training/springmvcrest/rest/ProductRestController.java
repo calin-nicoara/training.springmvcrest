@@ -1,10 +1,15 @@
 package ro.cni.training.springmvcrest.rest;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import lombok.AllArgsConstructor;
 
@@ -15,20 +20,28 @@ public class ProductRestController {
 
     private final ProductService productService;
 
+    private final MessageSource messageSource;
+
+//    @GetMapping("/{productId}")
+//    public ResponseEntity<ProductModel> getProduct(@PathVariable Long productId) {
+//        Optional<ProductModel> optionalProductModel =
+//                productService.getProduct(productId);
+//
+////        if(optionalProductModel.isPresent()) {
+////            return ResponseEntity.ok(optionalProductModel.get());
+////        } else {
+////            return ResponseEntity.notFound().build();
+////        }
+//
+//        return optionalProductModel
+//                .map(productModel -> ResponseEntity.ok(productModel))
+//                .orElseGet(() -> ResponseEntity.notFound().build());
+//    }
+
     @GetMapping("/{productId}")
-    public ResponseEntity<ProductModel> getProduct(@PathVariable Long productId) {
-        Optional<ProductModel> optionalProductModel =
-                productService.getProduct(productId);
-
-//        if(optionalProductModel.isPresent()) {
-//            return ResponseEntity.ok(optionalProductModel.get());
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-
-        return optionalProductModel
-                .map(productModel -> ResponseEntity.ok(productModel))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<ProductModel> getProduct(
+            @PathVariable Long productId) {
+        return ResponseEntity.ok(productService.getProduct(productId));
     }
 
 //    @GetMapping
@@ -53,8 +66,25 @@ public class ProductRestController {
     }
 
     @PostMapping
-    public void createProduct(@RequestBody ProductModel productModel) {
+    public ResponseEntity<Object> createProduct(
+            @RequestBody @Valid ProductModel productModel,
+            BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            List<ErrorModel> errorModels = bindingResult.getFieldErrors()
+                    .stream()
+                    .map(fieldError -> new ErrorModel(
+                            fieldError.getField(),
+                            fieldError.getCode(),
+                            messageSource.getMessage(
+                                    fieldError,
+                                    LocaleContextHolder.getLocale())))
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.badRequest().body(errorModels);
+        }
+
         productService.createProduct(productModel);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{productId}")

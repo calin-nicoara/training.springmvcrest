@@ -5,7 +5,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
@@ -18,9 +17,10 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public Optional<ProductModel> getProduct(Long id) {
+    public ProductModel getProduct(Long id) {
         return productRepository.findById(id)
-                .map(ProductMapper::getModel);
+                .map(ProductMapper::getModel)
+                .orElseThrow(() -> new NotFoundException());
     }
 
     public List<ProductListModel> getProductsForList(
