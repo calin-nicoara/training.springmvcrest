@@ -2,7 +2,6 @@ package ro.cni.training.springmvcrest.mvc.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ import lombok.AllArgsConstructor;
 import ro.cni.training.springmvcrest.product.Product;
 import ro.cni.training.springmvcrest.product.ProductRepository;
 
-@Controller
+//@Controller
 @RequestMapping("/product")
 @AllArgsConstructor
 public class ProductController {
