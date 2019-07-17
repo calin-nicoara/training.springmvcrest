@@ -4,7 +4,7 @@ import ro.cni.training.springmvcrest.product.Product;
 
 public class ProductMapper {
 
-    public ProductModel toModel(Product product) {
+    public static ProductModel toModel(Product product) {
         return ProductModel.builder()
                 .id(product.getId())
                 .brand(product.getBrand())
@@ -13,7 +13,7 @@ public class ProductMapper {
                 .build();
     }
 
-    public Product toEntity(ProductModel productModel) {
+    public static Product toEntity(ProductModel productModel) {
         return Product.builder()
                 .id(productModel.getId())
                 .brand(productModel.getBrand())

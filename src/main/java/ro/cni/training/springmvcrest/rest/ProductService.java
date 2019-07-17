@@ -11,5 +11,9 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-
+    public ProductModel getProduct(Long id) {
+        return productRepository.findById(id)
+                .map(ProductMapper::toModel)
+                .orElseThrow(() -> new RuntimeException("Not found!!"));
+    }
 }
